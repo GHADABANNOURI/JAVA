@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -6,90 +8,71 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class Main {
+
     public static void main(String[] args) {
-        /* ---------------------------------------- Prosit 09 ------------------------------------------------------ */
 
-        /*SocieteArrayList S = new SocieteArrayList();
-        Employee e1 = new Employee(1, "Jendoubi", "Hafedh", "J24", 16);
-        Employee e2 = new Employee(2, "Jendoubi", "Majdi", "G40", 13);
-        Employee e3 = new Employee(3, "Klai", "Rayen", "A23", 15);
-        Employee e4 = new Employee(4, "Mhamdi", "Ahlem", "A23", 18);
+        List<Student> students = new ArrayList<>();
+        students.add(new Student(1, 20, "Alice"));
+        students.add(new Student(2, 22, "Bob"));
+        students.add(new Student(3, 21, "Charlie"));
+        students.add(new Student(4, 23, "David"));
+        students.add(new Student(5, 20, "Eva"));
+        students.add(new Student(6, 22, "Frank"));
+        students.add(new Student(7, 21, "Grace"));
+        students.add(new Student(8, 23, "Hank"));
+        students.add(new Student(9, 19, "Ivy"));
+        students.add(new Student(10, 24, "Jack"));
 
-        S.ajouterEmploye(e4); //Add works
-        S.ajouterEmploye(e2);
-        S.ajouterEmploye(e1);
-        S.ajouterEmploye(e3);
-        System.out.println(S.rechercherEmploye(e1)); //True, it works
-        S.displayEmploye(); //Display works
-        System.out.println("\n"); //Display purposes
-        S.supprimerEmploye(e1); //Delete works
-        S.displayEmploye();
-        System.out.println(S.rechercherEmploye("Andolsi")); //False, it works
-        System.out.println("\n"); //Display purposes
-        S.trierEmployeParId(); //Tri ID works
-        S.displayEmploye();
-        System.out.println("\n"); //Display purposes
-        S.trierEmployeParNomDepartementEtGrade(); //Tri NomDepartement then Grade works
-        S.displayEmploye();*/
 
-        /* ---------------------------------------- Prosit 10 ------------------------------------------------------ */
+        StudentManagement st = new StudentManagement();
 
-        /*DepartementHashSet D = new DepartementHashSet();
+        //lambda
+        Consumer<Student> con = s -> System.out.println(s);
+        st.displayStudents(students, con);
+        //reference method
+        st.displayStudents(students, System.out::println);
 
-        D.ajouterDepartement(new Departement(3, "J24", 15)); //Add Works
-        D.ajouterDepartement(new Departement(2, "J23", 15));
-        D.ajouterDepartement(new Departement(1, "J22", 15));
-        D.displayDepartement(); //It works
-        System.out.println(D.rechercherDepartement("J24"));
-        System.out.println(D.trierDepartementById()); //It works fine*/
+        //lambda
+        Predicate<Student> pre = t -> t.getAge() > 22;
+        st.displayStudentsByFilter(students, pre, con);
 
-        /* ---------------------------------------- Prosit 11 ------------------------------------------------------ */
+        //lambda
+        Function<Student, String> fun = e -> e.getName();
+        String names = st.returnStudentsNames(students, fun);
+        System.out.println(names);
+        //reference method
+        String names1 = st.returnStudentsNames(students, Student::getName);
+        System.out.println(names1);
 
-        /*AffectationHashMap AHM = new AffectationHashMap();
-        Employee e1 = new Employee(1, "Jendoubi", "Hafedh", "J24", 16);
-        Employee e2 = new Employee(2, "Jendoubi", "Majdi", "G40", 13);
-        Employee e3 = new Employee(3, "Klai", "Rayen", "A23", 15);
-        Departement d1 = new Departement(1, "J24", 10);
-        Departement d2 = new Departement(2, "J25", 10);
+        //lambda (create empty student object)
+        Supplier<Student> sup = () -> new Student();
+        Student student = st.createStudent(sup);
+        System.out.println(student);
+        //lambda (create parametrized student object)
+        Supplier<Student> sup1 = () -> new Student(11, 23, "Amy");
+        Student student1 = st.createStudent(sup);
+        System.out.println(student1);
 
-        AHM.ajouterEmployeDepartement(e1, d1); //Add works
-        AHM.ajouterEmployeDepartement(e2, d1);
-        AHM.ajouterEmployeDepartement(e3, d2);
-        AHM.afficherEmployesEtDepartements(); //Display works
-        //Adding the same employee in different departments will result in a problem because Employee is a Key. It has to be unique.
-        AHM.supprimerEmploye(e2); //Delete works
-        AHM.afficherEmployes(); //Employees display works
-        AHM.afficherDepartments();
-        System.out.println(AHM.rechercherEmploye(e2)); //False cause we deleted e2. So, it works.
-        System.out.println(AHM.rechercherDepartement(d1)); //True so it works
-        System.out.println(AHM.trierMap()); //It Works
-        AHM.supprimerEmployeEtDepartement(e3, d2); // It works
-        AHM.afficherEmployesEtDepartements();*/
+        //reference method (create empty student object)
+        Supplier<Student> sup2 = Student::new;
+        Student student2 = sup2.get();
+        System.out.println(student2);
 
-        /* ---------------------------------------- Prosit 12 ------------------------------------------------------ */
+        //reference method (create parametrized student object)
+        TripleFunction<Integer, Integer, String, Student> tf = Student::new;
+        Student student3 = tf.convert(11, 23, "Amy");
+        System.out.println(student3);
 
-        List<Etudiant> etudiants = new ArrayList<>();
-        EtudiantManagement EM = new EtudiantManagement();
-        Etudiant e1 = new Etudiant(1, "Hafedh", 21);
-        Etudiant e2 = new Etudiant(2, "Majdi", 24);
-        Consumer<Etudiant> con = etudiant -> System.out.println(etudiant.toString());
-        Predicate<Etudiant> pre = etudiant -> etudiant.getNom().startsWith("H"); //Checks etudiants that starts with letter "H"
-        Function<Etudiant, String> fun = Etudiant::getNom;
-        Supplier<Etudiant> sup = Etudiant::new;
-        Comparator<Etudiant> comp = Comparator.comparingInt(Etudiant::getId);
 
-        EM.addEtudiant(etudiants, e2);
-        EM.addEtudiant(etudiants, e1);
+        //lambda
+        Comparator<Student> com = (a, b) -> a.getId() - b.getId();
+        List<Student> students1 = st.sortStudentsById(students, com);
+        System.out.println(students1);
+        //reference method
+        List<Student> students2 = st.sortStudentsById(students, Comparator.comparing(Student::getId));
+        System.out.println(students2);
 
-        //EM.displayStudents(etudiants, con); //Display works
-        //EM.displayStudentsByFilter(etudiants, pre, con); //Filter works
-        //System.out.println(EM.returnStudentsNames(etudiants, fun)); //Names Display works
-        /*Etudiant e = EM.createStudent(sup); // It works
-        System.out.println(e);*/
-        /*etudiants = EM.sortStudentsById(etudiants, comp); //It works
-        System.out.println(etudiants);*/
-        /*Stream<Etudiant> etudiantStream = EM.convertToStream(etudiants); //It works
-        etudiantStream.forEach(System.out::println);*/
-        System.out.println("Everything works perfectly!");
+        Stream<Student> stream = st.convertToStream(students);
+
     }
 }

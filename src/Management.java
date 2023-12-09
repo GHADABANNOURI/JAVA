@@ -7,10 +7,16 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public interface Management {
-    void displayStudents(List<Etudiant> etudiants, Consumer<Etudiant> con);
-    void displayStudentsByFilter(List<Etudiant> etudiants, Predicate<Etudiant> pre, Consumer<Etudiant> con);
-    String returnStudentsNames(List<Etudiant> etudiants, Function<Etudiant, String> fun);
-    Etudiant createStudent(Supplier<Etudiant> sup);
-    List<Etudiant> sortStudentsById(List<Etudiant> etudiants, Comparator<Etudiant> com);
-    Stream<Etudiant> convertToStream(List<Etudiant> etudiants);
+
+    void displayStudents(List<Student> students, Consumer<Student> con);
+
+    void displayStudentsByFilter(List<Student> students, Predicate<Student> pre, Consumer<Student> con);
+
+    String returnStudentsNames(List<Student> students, Function<Student, String> fun);
+
+    Student createStudent(Supplier<Student> sup);
+
+    List<Student> sortStudentsById(List<Student> students, Comparator<Student> com);
+
+    Stream<Student> convertToStream(List<Student> students);
 }
