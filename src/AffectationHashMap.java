@@ -1,83 +1,67 @@
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.*;
 
 public class AffectationHashMap {
-    private Map<Employee, Departement> details;
+    Map<Employe,Departement> employeDep = new HashMap<>();
 
-    public AffectationHashMap(){
-        details = new HashMap<>();
+    void ajouterEmployeDepartement(Employe e, Departement d){
+        employeDep.put(e,d);
     }
-
-    public AffectationHashMap(Map<Employee, Departement> details) {
-        this.details = details;
-    }
-
-    public Map<Employee, Departement> getDetails() {
-        return details;
-    }
-
-    public void setDetails(Map<Employee, Departement> details) {
-        this.details = details;
-    }
-
-    public void ajouterEmployeDepartement(Employee e, Departement d){
-        e.setNomDepartement(d.getNom()); //to make sure the department of the employee is not different from the department itself.
-        details.put(e, d);
-    }
-
-    public void afficherEmployesEtDepartements(){
-        for(Map.Entry<Employee, Departement> entry : details.entrySet()){
-            System.out.println(entry.getKey().getNom() + ", " + entry.getKey().getPrenom() + ": Department: " + entry.getValue().getNom());
+    void afficherEmployesEtDepartements(){
+        for(Map.Entry<Employe,Departement> e : employeDep.entrySet()){
+            System.out.println(e.getKey().getNom() + " " + e.getKey().getPrenom() + " is in the " + e.getValue().getNomDep()+ " Departement");
         }
     }
 
-    public void supprimerEmploye(Employee e) {
-        if (details.containsKey(e))
-            details.remove(e);
-        else
-            System.out.println("Employee n'existe pas.");
+    void supprimerEmploye(Employe e){
+        employeDep.remove(e);
     }
-
-    public void supprimerEmployeEtDepartement(Employee e, Departement d){
-        if(details.containsKey(e) && details.containsValue(d))
-            details.remove(e, d);
-        else
-            System.out.println("Employee or Departement n'existe pas.");
-    }
-
-    public void afficherEmployes(){
-        Set<Employee> employees = details.keySet();
-        Iterator<Employee> iterator = employees.iterator();
-        System.out.println("Employees IDs:");
-        while(iterator.hasNext()){
-            System.out.println(iterator.next().getID());
+    void supprimerEmployeEtDepartement(Employe e, Departement d){
+        Departement dep = employeDep.get(e);
+        if(d.equals(dep)){
+            supprimerEmploye(e);
         }
     }
-
-    public void afficherDepartments(){
-        Collection<Departement> departments = details.values();
-        System.out.println("Departments: ");
-        for(Departement d : departments){
-            System.out.println(d.getId() + ", " + d.getNom());
+    void afficherEmployes(){
+        /*for(Employe e : employeDep.keySet()){
+            System.out.println(e);
+        }
+         */
+        Set<Employe> keys = employeDep.keySet();
+        Iterator<Employe> it = keys.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
         }
     }
-
-    public boolean rechercherEmploye(Employee e){
-        return details.containsKey(e);
+    void afficherDepartements(){
+        /*for(Departement d : employeDep.values()){
+            System.out.println(d);
+        }*/
+        Collection<Departement> values = employeDep.values();
+        Iterator<Departement> it = values.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
     }
-
-    public boolean rechercherDepartement (Departement d){
-        return details.containsValue(d);
+    boolean rechercherEmploye (Employe e){
+        return employeDep.containsKey(e);
     }
-
-    TreeMap<Employee, Departement> trierMap(){
-        Comparator<Employee> Compartor = new Comparator<Employee>() {
+    boolean rechercherDepartement (Departement d){
+        return employeDep.containsValue(d);
+    }
+    TreeMap<Employe, Departement> trierMap(){
+       /* Comparator<Employe> c = new Comparator<Employe>() {
             @Override
-            public int compare(Employee o1, Employee o2) {
-                return o1.getID() - o2.getID();
+            public int compare(Employe o1, Employe o2) {
+                return o1.getID()- o2.getID();
             }
         };
-        TreeMap<Employee, Departement> newDetails = new TreeMap<>(Compartor);
-        newDetails.putAll(details);
-        return newDetails;
+        TreeMap<Employe, Departement> tree = new TreeMap<>(c);
+        tree.putAll(employeDep);
+        return tree;*/
+        return new TreeMap<>(employeDep);
     }
 }

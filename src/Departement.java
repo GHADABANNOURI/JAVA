@@ -1,16 +1,17 @@
-import java.util.Comparator;
+import java.util.Objects;
 
-public class Departement implements Comparable<Departement> {
+public class Departement implements Comparable<Departement>{
     private int id;
-    private String nom;
-    private int nbrEmployes;
+    private String nomDep ;
+    private int NbrEmploye;
 
-    public Departement(){}
-
-    public Departement(int id, String nom, int nbrEmployes) {
+    public Departement(int id, String nomDep, int nbrEmploye) {
         this.id = id;
-        this.nom = nom;
-        this.nbrEmployes = nbrEmployes;
+        this.nomDep = nomDep;
+        NbrEmploye = nbrEmploye;
+    }
+
+    public Departement() {
     }
 
     public int getId() {
@@ -21,46 +22,46 @@ public class Departement implements Comparable<Departement> {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getNomDep() {
+        return nomDep;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNomDep(String nomDep) {
+        this.nomDep = nomDep;
     }
 
-    public int getNbrEmployes() {
-        return nbrEmployes;
+    public int getNbrEmploye() {
+        return NbrEmploye;
     }
 
-    public void setNbrEmployes(int nbrEmployes) {
-        this.nbrEmployes = nbrEmployes;
-    }
-
-    @Override
-    public boolean equals(Object obj){
-        if(obj == null) return false;
-        if(obj instanceof Departement d){
-            return id == d.getId() && nom.equals(d.getNom());
-        }
-        return false;
+    public void setNbrEmploye(int nbrEmploye) {
+        NbrEmploye = nbrEmploye;
     }
 
     @Override
-    public String toString(){
-        return "Departement:\tID: " + id + "\tName: " + nom + "\tNumber Employes: " + nbrEmployes;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Departement that = (Departement) o;
+        return id == that.id && Objects.equals(nomDep, that.nomDep);
     }
 
     @Override
-    public int hashCode(){
-        int result = 17;
-        result = result * 31 + id;
-        result = result * 31 + nom.hashCode();
-        return result;
+    public int hashCode() {
+        return Objects.hash(id, nomDep);
     }
 
     @Override
+    public String toString() {
+        return "Departement{" +
+                "id=" + id +
+                ", nomDep='" + nomDep + '\'' +
+                ", NbrEmploye=" + NbrEmploye +
+                '}';
+    }
+
     public int compareTo(Departement o) {
-        return id - o.getId();
+
+        return id-o.getId();
     }
 }

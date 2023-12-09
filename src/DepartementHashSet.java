@@ -1,54 +1,38 @@
-import com.sun.source.tree.Tree;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.TreeSet;
 import java.util.*;
-
 public class DepartementHashSet implements IDepartement<Departement>{
-    Set<Departement> Departements = new HashSet<>();
-
-    @Override
+    Set<Departement> Deps = new HashSet<>();
     public void ajouterDepartement(Departement departement) {
-        Departements.add(departement);
+        Deps.add(departement);
     }
 
-    @Override
     public boolean rechercherDepartement(String nom) {
-        for(Departement d : Departements){
-            if(d.getNom().equals(nom))
-                return true;
+        for (Departement d: Deps) {
+            if(d.getNomDep().equals(nom)) return true;
         }
-
         return false;
     }
 
-    @Override
     public boolean rechercherDepartement(Departement departement) {
-        for(Departement d : Departements){
-            if(d.equals(departement))
-                return true;
-        }
-
-        return false;
+        return Deps.contains(departement);
     }
 
-    @Override
     public void supprimerDepartement(Departement departement) {
-        if(rechercherDepartement(departement) == true)
-            Departements.remove(departement);
-        else
-            System.out.println("Departement " + departement.getNom() + " n'existe pas.");
+        Deps.remove(departement);
     }
 
-    @Override
     public void displayDepartement() {
-        Iterator<Departement> it = Departements.iterator();
-        while(it.hasNext()){
+        Iterator<Departement> it = Deps.iterator();
+        while (it.hasNext()){
             System.out.println(it.next());
         }
     }
 
-    @Override
     public TreeSet<Departement> trierDepartementById() {
-        TreeSet<Departement> DepartementsTree = new TreeSet<>(Departements);
 
-        return DepartementsTree;
+        return new TreeSet<>(Deps);
     }
 }

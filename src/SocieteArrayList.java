@@ -3,66 +3,72 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SocieteArrayList implements IGestion<Employee>{
-    List<Employee> Employees = new ArrayList<Employee>();
-
-    public SocieteArrayList(){}
-
+public class SocieteArrayList implements IGestion<Employe> {
+    List<Employe> employes = new ArrayList<>();
     @Override
-    public void ajouterEmploye(Employee employee) {
-        Employees.add(employee);
+    public void ajouterEmploye(Employe employe) {
+        employes.add(employe);
     }
 
-    @Override
     public boolean rechercherEmploye(String nom) {
-        for(Employee e : Employees){
-            if(e.getNom() == nom){
-                return true;
-            }
+        for (Employe e: employes) {
+            if(e.getNom().equals(nom)) return true;
         }
         return false;
     }
 
-    @Override
-    public boolean rechercherEmploye(Employee employee) {
-        for(Employee e : Employees){
-            if(e == employee)
-                return true;
-        }
-        return false;
+    public boolean rechercherEmploye(Employe employe) {
+        return employes.contains(employe);
     }
 
-    @Override
-    public void supprimerEmploye(Employee employee) {
-        Employees.remove(employee);
+    public void supprimerEmploye(Employe employe) {
+        employes.remove(employe);
     }
 
-    @Override
     public void displayEmploye() {
-        System.out.println(Employees);
+        System.out.println(employes);
     }
 
-    @Override
     public void trierEmployeParId() {
-        Collections.sort(Employees);
+        Comparator<Employe> comp = new Comparator<Employe>() {
+            @Override
+            public int compare(Employe o1, Employe o2) {
+                return o1.getID()-o2.getID();
+            }
+        };
+        Collections.sort(employes,comp);
     }
 
-    @Override
-    public void trierEmployeParNomDepartementEtGrade() {
-        Comparator<Employee> NomDepartementCompartor = new Comparator<Employee>() {
+    public void trierEmployeParNomDépartementEtGrade() {
+        /*Comparator<Employe> comp = new Comparator<Employe>() {
             @Override
-            public int compare(Employee o1, Employee o2) {
-                return o1.getNomDepartement().compareTo(o2.getNomDepartement());
+            public int compare(Employe o1, Employe o2) {
+                if(!o1.getNomDep().equals(o2.getNomDep())){
+                    return o1.getNomDep().compareTo(o2.getNomDep());
+                }
+                else{
+                    return o1.getGrade()-o2.getGrade();
+                }
             }
         };
-
-        Comparator<Employee> GradeCompartor = new Comparator<Employee>() {
+        Collections.sort(employes,comp);
+        */
+        Comparator<Employe> compDep = new Comparator<Employe>() {
             @Override
-            public int compare(Employee o1, Employee o2) {
-                return o1.getGrade() - o2.getGrade();
+            public int compare(Employe o1, Employe o2) {
+                if(!o1.getNomDep().equals(o2.getNomDep())){
+                    return o1.getNomDep().compareTo(o2.getNomDep());
+                }
+                return 0;
             }
         };
-
-        Collections.sort(Employees, NomDepartementCompartor.thenComparing(GradeCompartor));
+        Comparator<Employe> compGrade = new Comparator<Employe>() {
+            @Override
+            public int compare(Employe o1, Employe o2) {
+                return o1.getGrade()-o2.getGrade();
+            }
+        };
+        Collections.sort(employes,compGrade);
+        Collections.sort(employes,compDep);
     }
 }

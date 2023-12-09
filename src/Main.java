@@ -1,66 +1,68 @@
-import java.util.Collection;
-import java.util.Collections;
 import java.util.TreeSet;
 
 public class Main {
     public static void main(String[] args) {
-        /* ---------------------------------------- Prosit 09 ------------------------------------------------------ */
+/*
+        DepartementHashSet genDep = new DepartementHashSet();
 
-        /*SocieteArrayList S = new SocieteArrayList();
-        Employee e1 = new Employee(1, "Jendoubi", "Hafedh", "J24", 16);
-        Employee e2 = new Employee(2, "Jendoubi", "Majdi", "G40", 13);
-        Employee e3 = new Employee(3, "Klai", "Rayen", "A23", 15);
-        Employee e4 = new Employee(4, "Mhamdi", "Ahlem", "A23", 18);
+        Departement dep1 = new Departement(1,"1",0);
+        Departement dep2 = new Departement(2,"1",0);
+        Departement dep3 = new Departement(3,"1",0);
+        Departement dep4 = new Departement(4,"1",0);
+        Departement dep5 = new Departement(5,"1",0);
+        Departement dep6 = new Departement(6,"1",0);
 
-        S.ajouterEmploye(e4); //Add works
-        S.ajouterEmploye(e2);
-        S.ajouterEmploye(e1);
-        S.ajouterEmploye(e3);
-        System.out.println(S.rechercherEmploye(e1)); //True, it works
-        S.displayEmploye(); //Display works
-        System.out.println("\n"); //Display purposes
-        S.supprimerEmploye(e1); //Delete works
-        S.displayEmploye();
-        System.out.println(S.rechercherEmploye("Andolsi")); //False, it works
-        System.out.println("\n"); //Display purposes
-        S.trierEmployeParId(); //Tri ID works
-        S.displayEmploye();
-        System.out.println("\n"); //Display purposes
-        S.trierEmployeParNomDepartementEtGrade(); //Tri NomDepartement then Grade works
-        S.displayEmploye();*/
 
-        /* ---------------------------------------- Prosit 10 ------------------------------------------------------ */
+        genDep.ajouterDepartement(dep2);
+        genDep.ajouterDepartement(dep6);
+        genDep.ajouterDepartement(dep3);
+        genDep.ajouterDepartement(dep5);
+        genDep.ajouterDepartement(dep1);
+        genDep.ajouterDepartement(dep4);
 
-        /*DepartementHashSet D = new DepartementHashSet();
+        genDep.displayDepartement();
 
-        D.ajouterDepartement(new Departement(3, "J24", 15)); //Add Works
-        D.ajouterDepartement(new Departement(2, "J23", 15));
-        D.ajouterDepartement(new Departement(1, "J22", 15));
-        D.displayDepartement(); //It works
-        System.out.println(D.rechercherDepartement("J24"));
-        System.out.println(D.trierDepartementById()); //It works fine*/
+        TreeSet<Departement> sortedlist = genDep.trierDepartementById();
+        System.out.println(sortedlist)
+ */
+        AffectationHashMap depHashset = new AffectationHashMap();
+        Departement dep1 = new Departement(41,"1",0);
+        Departement dep2 = new Departement(62,"2",0);
 
-        /* ---------------------------------------- Prosit 11 ------------------------------------------------------ */
+        Employe em1 = new Employe(2,"em","1","exmp",5);
+        Employe em2 = new Employe(42,"emye","2","exmp",5);
+        Employe em3 = new Employe(62,"nt","3","exmp",5);
+        Employe em4 = new Employe(58,"exm","4","exmp",5);
 
-        AffectationHashMap AHM = new AffectationHashMap();
-        Employee e1 = new Employee(1, "Jendoubi", "Hafedh", "J24", 16);
-        Employee e2 = new Employee(2, "Jendoubi", "Majdi", "G40", 13);
-        Employee e3 = new Employee(3, "Klai", "Rayen", "A23", 15);
-        Departement d1 = new Departement(1, "J24", 10);
-        Departement d2 = new Departement(2, "J25", 10);
+        depHashset.ajouterEmployeDepartement(em1,dep1);
+        depHashset.ajouterEmployeDepartement(em2,dep2);
+        depHashset.ajouterEmployeDepartement(em3,dep2);
+        depHashset.ajouterEmployeDepartement(em4,dep1);
 
-        AHM.ajouterEmployeDepartement(e1, d1); //Add works
-        AHM.ajouterEmployeDepartement(e2, d1);
-        AHM.ajouterEmployeDepartement(e3, d2);
-        AHM.afficherEmployesEtDepartements(); //Display works
-        //Adding the same employee in different departments will result in a problem because Employee is a Key. It has to be unique.
-        AHM.supprimerEmploye(e2); //Delete works
-        AHM.afficherEmployes(); //Employees display works
-        AHM.afficherDepartments();
-        System.out.println(AHM.rechercherEmploye(e2)); //False cause we deleted e2. So, it works.
-        System.out.println(AHM.rechercherDepartement(d1)); //True so it works
-        System.out.println(AHM.trierMap()); //It Works
-        AHM.supprimerEmployeEtDepartement(e3, d2); // It works
-        AHM.afficherEmployesEtDepartements();
+        depHashset.afficherEmployesEtDepartements();
+        System.out.println("-------------------------");
+        depHashset.afficherDepartements();
+        System.out.println("-------------------------");
+        depHashset.afficherEmployes();
+        System.out.println("-------------------------");
+        System.out.println(depHashset.rechercherEmploye(em1));
+        System.out.println(depHashset.rechercherDepartement(dep1));
+        System.out.println("-------------------------");
+        System.out.println(depHashset.trierMap());
+        System.out.println("-------------------------");
+        System.out.println("-------------------------");
+        depHashset.supprimerEmploye(em1);
+        depHashset.afficherEmployesEtDepartements();
+        System.out.println(depHashset.rechercherEmploye(em1));
+        System.out.println("-------------------------");
+        depHashset.supprimerEmployeEtDepartement(em2,dep1);
+        depHashset.afficherEmployesEtDepartements();
+        System.out.println("-------------------------");
+        depHashset.supprimerEmployeEtDepartement(em2,dep2);
+        depHashset.afficherEmployesEtDepartements();
+        System.out.println("-------------------------");
+        depHashset.supprimerEmploye(em4);
+        depHashset.afficherEmployesEtDepartements();
+        System.out.println(depHashset.rechercherDepartement(dep1));
     }
 }
